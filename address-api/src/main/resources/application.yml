@@ -1,0 +1,14 @@
+api:
+  cfg:
+    user: user1
+    password: 1234
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+topic:
+  address: topic_address

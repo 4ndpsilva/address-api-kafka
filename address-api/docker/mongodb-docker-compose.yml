@@ -1,0 +1,37 @@
+version: '3'
+
+networks:
+  mongo-compose-network:
+    driver: bridge
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo-server
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: andre@1234
+    ports:
+      - '27017:27017'
+    volumes:
+      - /home/mtuser/projects/docker/volumes/mongodb:/data/db
+    networks:
+      - mongo-compose-network
+    restart: always
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - 8085:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: andre
+      ME_CONFIG_BASICAUTH_PASSWORD: 123
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: andre@1234
+    links:
+      - mongo
+    networks:
+      - mongo-compose-network
+    restart: always
